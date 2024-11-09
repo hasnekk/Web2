@@ -69,8 +69,6 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(limiter);
-
 // routes
 app.get('/', (req, res) => {
   res.redirect('/sql-injection');
@@ -194,7 +192,7 @@ app.post('/signup', async (req, res) => {
   }
 });
 
-app.post('/login', async (req, res) => {
+app.post(limiter, '/login', async (req, res) => {
   try {
     const { username, password, allowBadAuth } = req.body;
 
