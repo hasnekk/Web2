@@ -1,0 +1,122 @@
+<div class="container mt-5">
+    <h1 class="text-center">Bad Authentication Demo</h1>
+    <div class="text-center">
+        <button class="btn btn-primary m-2" id="loginButton">Login</button>
+        <button class="btn btn-secondary m-2" id="signupButton">Signup</button>
+    </div>
+
+    <!-- Login Form -->
+    <div class="form-container" id="loginForm">
+        <h2 style="font-size: 5rem;" class="text-center text-danger">Login</h2>
+        <form action="/login" method="POST" class="mt-4">
+            <div class="form-group">
+                <label for="loginUsername">Username</label>
+                <input type="text" class="form-control" id="loginUsername" name="username" placeholder="Enter Username"
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Password</label>
+                <input type="password" class="form-control" id="loginPassword" name="password"
+                    placeholder="Enter Password" required>
+            </div>
+            <div class="form-check mb-3">
+                <input type="checkbox" class="form-check-input" id="allowBadAuthLogin" name="allowBadAuth">
+                <label class="form-check-label" for="allowBadAuthLogin">Allow Bad Authentication</label>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Login</button>
+        </form>
+    </div>
+
+    <!-- Signup Form -->
+    <div class="form-container" id="signupForm">
+        <h2 style="font-size: 5rem;" class="text-center text-danger">Signup</h2>
+        <form action="/signup" method="POST" class="mt-4">
+            <div class="form-group">
+                <label for="signupUsername">Username</label>
+                <input type="text" class="form-control" id="signupUsername" name="username" placeholder="Enter Username"
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="signupPassword">Password</label>
+                <input type="password" class="form-control" id="signupPassword" name="password"
+                    placeholder="Enter Password" required>
+            </div>
+            <div class="form-check mb-3">
+                <input type="checkbox" class="form-check-input" id="allowBadAuthSignup" name="allowBadAuth">
+                <label class="form-check-label" for="allowBadAuthSignup">Allow Bad Authentication</label>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Signup</button>
+        </form>
+    </div>
+
+    <% if (error) { %>
+        <div class="col-md-6 offset-md-3 mt-5">
+            <h1 class="text-center text-danger">
+                <%= error %>
+            </h1>
+        </div>
+        <% } %>
+
+            <% if (result) { %>
+                <div class="col-md-6 offset-md-3 mt-5">
+                    <h1 class="text-center text-success">User Information</h1>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Password</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (Array.isArray(result)) { %>
+                                <% result.forEach(function(user) { %>
+                                    <tr>
+                                        <td>
+                                            <%= user.user_id %>
+                                        </td>
+                                        <td>
+                                            <%= user.name %>
+                                        </td>
+                                        <td>
+                                            <%= user.password %>
+                                        </td>
+                                    </tr>
+                                    <% }); %>
+                                        <% } else { %>
+                                            <tr>
+                                                <td>
+                                                    <%= result.id %>
+                                                </td>
+                                                <td>
+                                                    <%= result.name %>
+                                                </td>
+                                                <td>
+                                                    <%= result.password %>
+                                                </td>
+                                            </tr>
+                                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+                <% } %>
+
+</div>
+
+<script>
+    // Show the Login form initially
+    document.getElementById('loginForm').classList.add('active');
+    document.getElementById('signupForm').classList.remove('active');
+
+    // Switch to Login form
+    document.getElementById('loginButton').addEventListener('click', function () {
+        document.getElementById('loginForm').classList.add('active');
+        document.getElementById('signupForm').classList.remove('active');
+    });
+
+    // Switch to Signup form
+    document.getElementById('signupButton').addEventListener('click', function () {
+        document.getElementById('signupForm').classList.add('active');
+        document.getElementById('loginForm').classList.remove('active');
+    });
+</script>

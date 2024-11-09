@@ -1,0 +1,74 @@
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h1 class="text-center">SQL Injection Demo</h1>
+        <form action="/sql-injection" method="POST" class="mt-4">
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="allowInjection" name="allowInjection">
+                <label class="form-check-label" for="allowInjection">
+                    Allow SQL Injection
+                </label>
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control mb-3" name="username" placeholder="Enter Username" required>
+                <input type="password" class="form-control" name="password" placeholder="Enter Password" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Search</button>
+        </form>
+    </div>
+
+
+    <% if (error) { %>
+        <div class="col-md-6 offset-md-3 mt-5">
+            <h1 class="text-center text-danger">
+                <%= error %>
+            </h1>
+        </div>
+        <% } %>
+
+            <% if (result) { %>
+                <div class="col-md-6 offset-md-3 mt-5">
+                    <h1 class="text-center text-success">User Information</h1>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Password</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (Array.isArray(result)) { %>
+                                <% result.forEach(function(user) { %>
+                                    <tr>
+                                        <td>
+                                            <%= user.user_id %>
+                                        </td>
+                                        <td>
+                                            <%= user.name %>
+                                        </td>
+                                        <td>
+                                            <%= user.password %>
+                                        </td>
+                                    </tr>
+                                    <% }); %>
+                                        <% } else { %>
+                                            <tr>
+                                                <td>
+                                                    <%= result.id %>
+                                                </td>
+                                                <td>
+                                                    <%= result.name %>
+                                                </td>
+                                                <td>
+                                                    <%= result.password %>
+                                                </td>
+                                            </tr>
+                                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+                <% } %>
+
+</div>
