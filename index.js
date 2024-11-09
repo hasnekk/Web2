@@ -192,7 +192,7 @@ app.post('/signup', async (req, res) => {
   }
 });
 
-app.post(limiter, '/login', async (req, res) => {
+app.post('/login', limiter, async (req, res) => {
   try {
     const { username, password, allowBadAuth } = req.body;
 
